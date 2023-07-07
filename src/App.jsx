@@ -4,7 +4,8 @@ import Homepage from "./components/Homepage";
 import Medicalreport from "./components/Medicalreport";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Register from "./components/Register";
+import Register from "./components/start/Register";
+import Login from "./components/start/Login";
 
 const App = () => {
   return (
@@ -15,10 +16,11 @@ const App = () => {
       <div className="app">
         <BrowserRouter>
           <Routes>
-            <Route path="homepage" element={<Homepage />}></Route>
-            <Route path="/" element={<Register />}></Route>
-            <Route path="ocr" element={<Ocr />}></Route>
-            <Route path="medical" element={<Medicalreport />}></Route>
+            <Route path="/" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/homepage" element={<Homepage />} />
+            <Route path="/ocr" element={<Ocr />} />
+            <Route path="/medical" element={<Medicalreport />} />
           </Routes>
         </BrowserRouter>
       </div>
