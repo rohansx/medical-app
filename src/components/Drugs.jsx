@@ -16,7 +16,7 @@ const message = `Generate a JSON representation of about result. The JSON should
 "Route",
 "Disclaimer" `;
 
-function Medicalreport() {
+function Drugs() {
   const [inputMessage, setInputMessage] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [resultJSON, setResultJSON] = useState(null);
@@ -161,4 +161,4 @@ function Medicalreport() {
   );
 }
 
-export default Medicalreport;
+export default Drugs;

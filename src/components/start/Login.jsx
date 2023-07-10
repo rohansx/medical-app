@@ -1,9 +1,10 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../../components/context/AuthProvider";
-import "./Start.css";
 import { Link } from "react-router-dom";
-
 import axios from "../../api/Axios";
+import "./Start.css";
+import Nav from "../Nav";
+
 const LOGIN_URL = "/auth";
 
 const Login = () => {
@@ -37,7 +38,6 @@ const Login = () => {
         }
       );
       console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       setAuth({ user, pwd, roles, accessToken });
@@ -59,26 +59,33 @@ const Login = () => {
   };
 
   return (
-    <div className="logform">
+    <div className="flex flex-col justify-center items-center w-full">
+      <Nav />
       {success ? (
-        <section>
-          <h1>You are logged in!</h1>
+        <section className="w-full max-w-md min-h-400 flex flex-col justify-start p-4">
+          <h1 className="text-3xl font-bold mb-4">You are logged in!</h1>
           <br />
           <p>
-            <Link to="/homepage">Go to Homepage</Link>
+            <Link to="/homepage" className="text-blue-500">
+              Go to Homepage
+            </Link>
           </p>
         </section>
       ) : (
-        <section>
+        <section className="w-full max-w-sm min-h-400 flex flex-col justify-start p-4 bg-gradient-to-br from-orange-500 via-orange-400 to-orange-300 rounded-lg">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
             aria-live="assertive">
             {errMsg}
           </p>
-          <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
+          <h1 className="text-3xl font-bold">Sign In</h1>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col justify-between flex-grow pb-4">
+            <label htmlFor="username" className="mt-4">
+              Username:
+            </label>
             <input
               type="text"
               id="username"
@@ -87,23 +94,31 @@ const Login = () => {
               onChange={(e) => setUser(e.target.value)}
               value={user}
               required
+              className="border border-gray-300 rounded p-1"
             />
 
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password" className="mt-4">
+              Password:
+            </label>
             <input
               type="password"
               id="password"
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
+              className="border border-gray-300 rounded p-1"
             />
-            <button>Sign In</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 mt-4">
+              Sign In
+            </button>
           </form>
           <p>
             Need an Account?
             <br />
             <span className="line">
-              <Link to="/">Sign Up</Link>
+              <Link to="/" className="text-blue-500">
+                Sign Up
+              </Link>
             </span>
           </p>
         </section>
