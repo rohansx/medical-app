@@ -1,30 +1,53 @@
 import React from "react";
-import Ocr from "./components/Ocr";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Nav from "./components/Nav";
+import Profile from "./components/start/Profile";
 import Homepage from "./components/Homepage";
-import Medicalreport from "./components/Medicalreport";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
+import Reports from "./components/start/Reports";
 import Register from "./components/start/Register";
 import Login from "./components/start/Login";
+import Ocr from "./components/Ocr";
+import Drugs from "./components/Drugs";
+import "tailwindcss/tailwind.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/homepage",
+    element: <Homepage />,
+  },
+  {
+    path: "/ocr",
+    element: <Ocr />,
+  },
+  {
+    path: "/reports",
+    element: <Reports />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/drugs",
+    element: <Drugs />,
+  },
+]);
 
 const App = () => {
   return (
-    <main>
-      <div className="main">
-        <div className="gradient" />
-      </div>
-      <div className="app">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/homepage" element={<Homepage />} />
-            <Route path="/ocr" element={<Ocr />} />
-            <Route path="/medical" element={<Medicalreport />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </main>
+    <div className="App">
+      <RouterProvider router={router}>
+        <Nav />
+      </RouterProvider>
+    </div>
   );
 };
 
