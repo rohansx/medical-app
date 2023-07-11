@@ -9,6 +9,7 @@ import Login from "./components/start/Login";
 import Ocr from "./components/Ocr";
 import Drugs from "./components/Drugs";
 import "tailwindcss/tailwind.css";
+import Physicians from "./components/start/Physicians";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/drugs",
     element: <Drugs />,
+  },
+  {
+    path: "/physicians",
+    element: <Physicians />,
   },
 ]);
 
