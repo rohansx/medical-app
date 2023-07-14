@@ -90,13 +90,13 @@ const Profile = () => {
 
   return (
     // <div className="flex flex-col ">
-    <div className="flex flex-col justify-center items-center w-full">
+    <div className="container mx-auto">
       <Nav />
       <div className=" justify-center items-center min-h-screen p-8 bg-gradient-to-br from-orange-500 via-orange-400 to-orange-300 rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Profile</h2>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-between flex-grow pb-4">
+          className="flex flex-col justify-between w-full flex-grow pb-4">
           {/* Personal Information */}
           <h3 className="text-xl font-bold">Personal Information</h3>
           <label htmlFor="fullName" className="block">
