@@ -4,26 +4,27 @@ import { Link } from "react-router-dom";
 import axios from "../../api/Axios";
 import "./Start.css";
 import Nav from "../Nav";
+import Footer from "../Footer";
 
 const LOGIN_URL = "/auth";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
-  const userRef = useRef();
+  const emailRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    userRef.current.focus();
+    emailRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd]);
+  }, [email, pwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const Login = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ email, pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -40,15 +41,15 @@ const Login = () => {
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
-      setUser("");
+      setAuth({ email, pwd, roles, accessToken });
+      setEmail("");
       setPwd("");
       setSuccess(true);
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
+        setErrMsg("Missing Email or Password");
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
@@ -62,39 +63,39 @@ const Login = () => {
     <div className="flex flex-col justify-center items-center w-full">
       <Nav />
       {success ? (
-        <section className="w-full max-w-md min-h-400 flex flex-col justify-start p-4">
+        <section className="shadow-2xl shadow-slate-400 w-full max-w-md min-h-400 flex flex-col justify-start p-4 bg-gradient-to-br  from-stone-200 via-stone-100 to-stone-50 rounded-lg">
           <h1 className="text-3xl font-bold mb-4">You are logged in!</h1>
           <br />
           <p>
-            <Link to="/homepage" className="text-blue-500">
+            <Link to="/homepage" className="text-sky-400">
               Go to Homepage
             </Link>
           </p>
         </section>
       ) : (
-        <section className="w-full max-w-sm min-h-400 flex flex-col justify-start p-4 bg-gradient-to-br from-orange-500 via-orange-400 to-orange-300 rounded-lg">
+        <section className="shadow-2xl shadow-slate-400 w-full max-w-sm min-h-400 flex flex-col justify-start p-4 bg-gradient-to-br  from-stone-200 via-stone-100 to-stone-50 rounded-lg">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
             aria-live="assertive">
             {errMsg}
           </p>
-          <h1 className="text-3xl font-bold">Sign In</h1>
+          <h1 className="text-3xl font-bold text-center">Sign In</h1>
           <form
             onSubmit={handleSubmit}
             className="flex flex-col justify-between flex-grow pb-4">
-            <label htmlFor="username" className="mt-4">
-              Username:
+            <label htmlFor="email" className="mt-4">
+              Email:
             </label>
             <input
-              type="text"
-              id="username"
-              ref={userRef}
+              type="Email"
+              id="Email"
+              ref={emailRef}
               autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
-              className="border border-gray-300 rounded p-1"
+              className="border border-green-300 text-lg p-1 rounded-md"
             />
 
             <label htmlFor="password" className="mt-4">
@@ -106,23 +107,23 @@ const Login = () => {
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
-              className="border border-gray-300 rounded p-1"
+              className="border border-green-300 text-lg p-1 rounded-md"
             />
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 mt-4">
+            <button className="mt-4 shadow-2xl bg-gradient-to-r from-green-300 to-green-200 hover:from-green-400 hover:to-green-300  text-black px-4 py-2 rounded-full">
               Sign In
             </button>
           </form>
           <p>
             Need an Account?
-            <br />
-            <span className="line">
-              <Link to="/" className="text-blue-500">
+            <span className="line ">
+              <Link to="/register" className="text-sky-400 mx-1">
                 Sign Up
               </Link>
             </span>
           </p>
         </section>
       )}
+      <Footer />
     </div>
   );
 };

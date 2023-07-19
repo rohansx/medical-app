@@ -3,17 +3,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Nav from "./components/Nav";
 import Profile from "./components/start/Profile";
 import Homepage from "./components/Homepage";
-import Reports from "./components/start/Reports";
 import Register from "./components/start/Register";
 import Login from "./components/start/Login";
 import Ocr from "./components/Ocr";
 import Drugs from "./components/Drugs";
 import "tailwindcss/tailwind.css";
 import Physicians from "./components/start/Physicians";
+import "./App.css";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/register",
     element: <Register />,
   },
   {
@@ -21,16 +21,12 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/homepage",
+    path: "/",
     element: <Homepage />,
   },
   {
     path: "/ocr",
     element: <Ocr />,
-  },
-  {
-    path: "/reports",
-    element: <Reports />,
   },
   {
     path: "/profile",
@@ -48,11 +44,16 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <div className="App">
-      <RouterProvider router={router}>
-        <Nav />
-      </RouterProvider>
-    </div>
+    <main>
+      <div className="main">
+        <div className="gradient main" />
+      </div>
+      <div className="App">
+        <RouterProvider router={router}>
+          <Nav />
+        </RouterProvider>
+      </div>
+    </main>
   );
 };
 

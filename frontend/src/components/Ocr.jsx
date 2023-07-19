@@ -175,9 +175,9 @@ export default function Ocr() {
           </div>
 
           <button
-            style={{ backgroundColor: isGenerating ? "grey" : "#eb5c0c" }}
+            style={{ backgroundColor: isGenerating ? "#34d399" : "#86efac" }}
             onClick={convertImageToText}
-            className="border-gray-200 text-white flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none"
+            className="border-gray-200 text-black flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none"
             disabled={isGenerating} // Disable the button while generating
           >
             <p className="text-sm">

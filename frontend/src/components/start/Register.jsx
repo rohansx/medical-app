@@ -6,27 +6,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/Axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Start.css";
 import Nav from "../Nav";
+import Footer from "../Footer";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const REGISTER_URL = "/register";
 
 const Register = () => {
-  const userRef = useRef();
+  const emailRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
+  // const [user, setUser] = useState("");
+  // const [validName, setValidName] = useState(false);
+  // const [userFocus, setUserFocus] = useState(false);
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
-  const emailRef = useRef();
 
   const [registrationType, setRegistrationType] = useState("patient");
 
@@ -41,13 +40,9 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setValidName(USER_REGEX.test(user));
-  }, [user]);
+  // useEffect(() => {
+  //   emailRef.current.focus();
+  // }, []);
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
@@ -60,41 +55,49 @@ const Register = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd, matchPwd]);
+  }, [email, pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
-    const v1 = USER_REGEX.test(user);
+    const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(pwd);
     if (!v1 || !v2) {
       setErrMsg("Invalid Entry");
       return;
     }
     try {
-      const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ user, pwd, email, registrationType }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+      const res = await axios.post(
+        "/api/v1/patient",
+        require("../../../../routes/patientRoutes", values)
       );
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response?.data));
-      setSuccess(true);
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
-      setUser("");
-      setPwd("");
-      setEmail("");
-      setValidEmail("");
-      setMatchPwd("");
+      // REGISTER_URL,
+      // JSON.stringify({ user, pwd, email, registrationType }),
+      // {
+      //   headers: { "Content-Type": "application/json" },
+      //   withCredentials: true,
+      // }
+      // console.log(res?.accessToken);
+      // console.log(JSON.stringify(res?.data));
+      // setSuccess(true);
+      // //clear state and controlled inputs
+      // //need value attrib on inputs for this
+      // setUser("");
+      // setPwd("");
+      // setEmail("");
+      // setValidEmail("");
+      // setMatchPwd("");
+      if (res.data.success) {
+        message.success("Register Successfully!");
+        navigate("./login");
+      } else {
+        message.error(res.data.message);
+      }
     } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+      if (!err?.res) {
+        setErrMsg("No Server response");
+      } else if (err.res?.status === 409) {
+        setErrMsg("Email already Registered");
       } else {
         setErrMsg("Registration Failed");
       }
@@ -107,7 +110,7 @@ const Register = () => {
       <div className="flex flex-col justify-center items-center w-full">
         <Nav />
         {success ? (
-          <section className="w-full max-w-sm min-h-96 flex flex-col justify-start p-4 bg-gradient-to-br from-orange-500 via-orange-400 to-orange-300 rounded-lg">
+          <section className="shadow-2xl shadow-slate-400 w-full max-w-sm min-h-96 flex flex-col justify-start p-4 bg-gradient-to-br  from-stone-200 via-stone-100 to-stone-50 rounded-lg">
             <h1>Success!</h1>
             <p>
               <a href="/" className="text-blue-400">
@@ -116,18 +119,18 @@ const Register = () => {
             </p>
           </section>
         ) : (
-          <section className="w-full max-w-sm min-h-400 flex flex-col justify-start p-4 bg-gradient-to-br from-orange-500 via-orange-400 to-orange-300 rounded-lg">
+          <section className="shadow-2xl shadow-slate-400 w-full max-w-sm min-h-400 flex flex-col justify-start p-4 bg-gradient-to-br from-stone-200 via-stone-100 to-stone-50 rounded-lg">
             <p
               ref={errRef}
               className={errMsg ? "errmsg" : "offscreen"}
               aria-live="assertive">
               {errMsg}
             </p>
-            <h1>Register</h1>
+            <h1 className="text-3xl font-bold text-center">Register</h1>
             <form
               onSubmit={handleSubmit}
               className="flex flex-col justify-between flex-grow pb-4">
-              <label htmlFor="username" className="mb-4">
+              {/* <label htmlFor="username" className="mb-4">
                 Username:
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -163,9 +166,9 @@ const Register = () => {
                 Must begin with a letter.
                 <br />
                 Letters, numbers, underscores, hyphens allowed.
-              </p>
+              </p> */}
 
-              <label htmlFor="email" className="mb-4">
+              <label htmlFor="email" className="mt-4">
                 Email:
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -186,7 +189,7 @@ const Register = () => {
                 aria-describedby="emailnote"
                 onFocus={() => setEmailFocus(true)}
                 onBlur={() => setEmailFocus(false)}
-                className="text-lg p-1 rounded-md"
+                className="border border-green-300 text-lg p-1 rounded-md"
               />
               <p
                 id="emailnote"
@@ -198,8 +201,7 @@ const Register = () => {
                 <FontAwesomeIcon icon={faInfoCircle} />
                 Enter a valid email address.
               </p>
-
-              <label htmlFor="password" className="mb-4">
+              <label htmlFor="password" className="mt-4">
                 Password:
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -213,7 +215,7 @@ const Register = () => {
               <input
                 type="password"
                 id="password"
-                className="text-lg p-1 rounded-md"
+                className="border border-green-300 text-lg p-1 rounded-md"
                 onChange={(e) => setPwd(e.target.value)}
                 value={pwd}
                 required
@@ -240,8 +242,7 @@ const Register = () => {
                 <span aria-label="dollar sign">$</span>{" "}
                 <span aria-label="percent">%</span>
               </p>
-
-              <label htmlFor="confirm_pwd">
+              <label htmlFor="confirm_pwd" className="mt-4">
                 Confirm Password:
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -262,7 +263,7 @@ const Register = () => {
                 aria-describedby="confirmnote"
                 onFocus={() => setMatchFocus(true)}
                 onBlur={() => setMatchFocus(false)}
-                className="text-lg p-1 rounded-md"
+                className="border border-green-300 text-lg p-1 rounded-md"
               />
               <p
                 id="confirmnote"
@@ -272,9 +273,8 @@ const Register = () => {
                 <FontAwesomeIcon icon={faInfoCircle} />
                 Must match the first password input field.
               </p>
-
-              <label className="mb-4">Register as:</label>
-              <label htmlFor="patient" className="mb-2">
+              <label className="mt-6">Register as:</label>
+              <label htmlFor="patient" className="mt-2">
                 <input
                   type="radio"
                   id="patient"
@@ -284,7 +284,7 @@ const Register = () => {
                 />
                 Patient
               </label>
-              <label htmlFor="physician" className="mb-2">
+              <label htmlFor="physician" className="mt-2">
                 <input
                   type="radio"
                   id="physician"
@@ -294,23 +294,26 @@ const Register = () => {
                 />
                 Physician
               </label>
-
               <button
-                disabled={!validName || !validPwd || !validMatch ? true : false}
-                className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">
+                disabled={
+                  !validEmail || !validPwd || !validMatch ? true : false
+                }
+                className="shadow-2xl bg-gradient-to-r from-green-300 to-green-200 hover:from-green-400 hover:to-green-300  text-black px-4 py-2 rounded-full ">
                 Sign Up
               </button>
             </form>
             <p>
               Already registered?
-              <br />
               <span className="line">
-                <Link to="/login">Sign In</Link>
+                <Link to="/login" className="text-sky-400 mx-1">
+                  Sign In
+                </Link>
               </span>
             </p>
           </section>
         )}
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Start.css";
 import Nav from "../Nav";
+import Footer from "../Footer";
 
 const Profile = () => {
   const [personalInfo, setPersonalInfo] = useState({
@@ -90,16 +91,18 @@ const Profile = () => {
 
   return (
     // <div className="flex flex-col ">
-    <div className="container mx-auto">
+    <div>
       <Nav />
-      <div className=" justify-center items-center min-h-screen p-8 bg-gradient-to-br from-orange-500 via-orange-400 to-orange-300 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Profile</h2>
+      <div
+        className="shadow-2xl shadow-slate-400 w-full flex flex-col  bg-gradient-to-br from-stone-200 via-stone-100 to-stone-50 rounded-lg
+      container mx-auto justify-center items-center min-h-screen p-8">
+        <h2 className="text-2xl font-bold mb-4 text-center">Profile</h2>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-between w-full flex-grow pb-4">
           {/* Personal Information */}
           <h3 className="text-xl font-bold">Personal Information</h3>
-          <label htmlFor="fullName" className="block">
+          <label htmlFor="fullName" className="block mt-4">
             Full Name:
           </label>
           <input
@@ -109,7 +112,7 @@ const Profile = () => {
             value={personalInfo.fullName}
             onChange={handlePersonalInfoChange}
             required
-            className="border rounded px-2 py-1"
+            className="border border-green-300 text-lg p-1 rounded-md px-2"
           />
           <br />
 
@@ -123,10 +126,10 @@ const Profile = () => {
             value={personalInfo.dateOfBirth}
             onChange={handlePersonalInfoChange}
             required
-            className="border rounded px-2 py-1 flex-none w-64"
+            className="border border-green-300 px-2 py-1 flex-none w-64 text-lg p-1 rounded-md"
           />
 
-          <label className="block">Gender:</label>
+          <label className="block mt-4">Gender:</label>
           <div className="space-x-4">
             <label htmlFor="male" className="inline-flex items-center">
               <input
@@ -169,7 +172,7 @@ const Profile = () => {
             </label>
           </div>
 
-          <label className="block">Marital Status:</label>
+          <label className="block mt-4">Marital Status:</label>
           <div className="space-x-4">
             <label htmlFor="married" className="inline-flex items-center">
               <input
@@ -211,10 +214,7 @@ const Profile = () => {
               <span className="ml-2">Divorced</span>
             </label>
           </div>
-
-          <br />
-
-          <label htmlFor="address" className="block">
+          <label htmlFor="address" className="block mt-4">
             Address:
           </label>
           <textarea
@@ -223,7 +223,7 @@ const Profile = () => {
             value={personalInfo.address}
             onChange={handlePersonalInfoChange}
             required
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
           <br />
 
@@ -238,7 +238,7 @@ const Profile = () => {
               value={personalInfo.countryCode}
               onChange={handlePersonalInfoChange}
               required
-              className="border rounded px-2 py-1 mr-2 w-20"
+              className="border border-green-300 px-2 py-1 flex-none mr-2 w-20 text-lg p-1 rounded-md"
               pattern="[0-9]+"
             />
             <input
@@ -254,7 +254,7 @@ const Profile = () => {
                 }));
               }}
               required
-              className="border rounded px-2 py-1 "
+              className="border border-green-300 px-2 py-1 flex-none w-30 text-lg p-1 rounded-md"
               pattern="[0-9]+"
             />
           </div>
@@ -263,7 +263,7 @@ const Profile = () => {
 
           {/* Medical History */}
           <h3 className="text-xl font-bold">Medical History</h3>
-          <label htmlFor="allergies" className="block">
+          <label htmlFor="allergies" className=" mt-4">
             Allergies:
           </label>
           <textarea
@@ -272,11 +272,10 @@ const Profile = () => {
             value={medicalHistory.allergies}
             onChange={handleMedicalHistoryChange}
             required
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
 
-          <label htmlFor="chronicConditions" className="block">
+          <label htmlFor="chronicConditions" className="block mt-4">
             Chronic Conditions:
           </label>
           <textarea
@@ -284,11 +283,9 @@ const Profile = () => {
             name="chronicConditions"
             value={medicalHistory.chronicConditions}
             onChange={handleMedicalHistoryChange}
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
-
-          <label htmlFor="surgeries" className="block">
+          <label htmlFor="surgeries" className="block mt-4">
             Past Surgeries or Hospitalizations:
           </label>
           <textarea
@@ -296,11 +293,10 @@ const Profile = () => {
             name="surgeries"
             value={medicalHistory.surgeries}
             onChange={handleMedicalHistoryChange}
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
 
-          <label htmlFor="familyHistory" className="block">
+          <label htmlFor="familyHistory" className="block mt-4">
             Family Medical History:
           </label>
           <textarea
@@ -308,13 +304,13 @@ const Profile = () => {
             name="familyHistory"
             value={medicalHistory.familyHistory}
             onChange={handleMedicalHistoryChange}
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
           <br />
 
           {/* Medications */}
           <h3 className="text-xl font-bold">Medications</h3>
-          <label htmlFor="currentMedications" className="block">
+          <label htmlFor="currentMedications" className="block mt-4">
             Current Medications:
           </label>
           <textarea
@@ -322,11 +318,10 @@ const Profile = () => {
             name="currentMedications"
             value={medications.currentMedications}
             onChange={handleMedicationsChange}
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
 
-          <label htmlFor="dosageFrequency" className="block">
+          <label htmlFor="dosageFrequency" className="block mt-4">
             Dosage and Frequency:
           </label>
           <input
@@ -335,13 +330,13 @@ const Profile = () => {
             name="dosageFrequency"
             value={medications.dosageFrequency}
             onChange={handleMedicationsChange}
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
           <br />
 
           {/* Lifestyle and Habits */}
           <h3 className="text-xl font-bold">Lifestyle and Habits</h3>
-          <label htmlFor="smokingStatus" className="block">
+          <label htmlFor="smokingStatus" className="block mt-4">
             Smoking Status:
           </label>
           <input
@@ -350,11 +345,10 @@ const Profile = () => {
             name="smokingStatus"
             value={lifestyle.smokingStatus}
             onChange={handleLifestyleChange}
-            className="border rounded px-2 py-1"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
 
-          <label htmlFor="alcoholConsumption" className="block">
+          <label htmlFor="alcoholConsumption" className="block mt-4">
             Alcohol Consumption:
           </label>
           <input
@@ -363,11 +357,10 @@ const Profile = () => {
             name="alcoholConsumption"
             value={lifestyle.alcoholConsumption}
             onChange={handleLifestyleChange}
-            className="border rounded px-2 py-1"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
 
-          <label htmlFor="dietPreferences" className="block">
+          <label htmlFor="dietPreferences" className="block mt-4">
             Diet Preferences or Restrictions:
           </label>
           <input
@@ -376,18 +369,17 @@ const Profile = () => {
             name="dietPreferences"
             value={lifestyle.dietPreferences}
             onChange={handleLifestyleChange}
-            className="border rounded px-2 py-1 flex-grow"
+            className="border border-green-300 px-2 py-1 flex-grow text-lg p-1 rounded-md"
           />
-          <br />
 
-          {/* Add more fields as needed */}
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">
+            className="shadow-2xl mt-4 bg-gradient-to-r from-green-300 to-green-200 hover:from-green-400 hover:to-green-300  text-black px-4 py-2 rounded-full">
             Save
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };
