@@ -15,3 +15,5 @@ For Regexr
 https://regexr.com/
 
 Install Axios
+
+('/api/v1/patient', require('../../../../backend/routes/patientRoutes', values)
