@@ -45,10 +45,10 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <main>
-      <div className="main">
-        <div className="gradient main" />
-      </div>
       <div className="App">
+        <div className="main">
+          <div className="gradient main" />
+        </div>
         <RouterProvider router={router}>
           <Nav />
         </RouterProvider>
