@@ -56,17 +56,17 @@ function Drugs() {
 
   return (
     <>
-      <div className="min-h-screen">
-        <Nav />
+      <Nav />
 
+      <div className="min-h-screen">
         {/* Hero Section */}
         <div className="w-full flex justify-center items-center flex-col mb-10">
           <h1 className="mt-5 text-5xl font-extrabold leading-normal sm:text-6xl text-center max-w-2xl">
-            <span className="bg-gradient-to-br from-emerald-300 via-green-200 to-green-100 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-br from-green-500 via-green-300 to-green-100 bg-clip-text text-transparent">
               Doctalyzer
             </span>
             <br />
-            {/* <span className='description'>Analyze Medical Reports</span> */}
+            <span className="description">Analyze Medical Reports</span>
           </h1>
           <h2 className="desc">
             This tool will tell you about the usage and information of
@@ -106,7 +106,7 @@ function Drugs() {
               className="cursor-pointer hover rounded-full bg-white border-solid border-2 border-green-300 px-5 mx-2">
               Diclofanac
             </div>
-            <div className="bg-gradient-to-br from-emerald-300 via-green-200 to-green-100 rounded-full px-2 pt-1 text-sm">
+            <div className="bg-gradient-to-br from-green-500 via-green-200 to-green-100 rounded-full px-2 pt-1 text-sm">
               1M+ Medicines
             </div>
           </div>
